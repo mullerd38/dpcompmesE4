@@ -217,13 +217,12 @@ var question = {
 
 var slider = {
   type: jsPsychHtmlSliderResponse,
-  slider_start: condition === "two-step" ? 1 : 0,  // Use condition
+  slider_start: condition === "two-step" ? 1 : 0,  // le 0 reste au centre pour single-step
   require_movement: true,
-  min: condition === "two-step" ? 1 : 0, 
+  min: condition === "two-step" ? 1 : -100,  // ← -100 pour single-step
   max: 100,
   step: 1,
   labels: function() {
-    // Ensure labels match the actual min value set by condition
     if (condition === "two-step") {
       return [
         '1<br>Very small extent', 
@@ -232,12 +231,13 @@ var slider = {
       ];
     } else {
       return [
-        '0<br>Definitely not', 
-        '50<br>Quite effective',
-        '100<br>Definitely yes'
+        '-100<br>Ton label gauche',   // ← à modifier ensuite
+        '0<br>Ton label centre',      // ← à modifier ensuite
+        '100<br>Ton label droit'      // ← à modifier ensuite
       ];
     }
   },
+ 
   stimulus: function() {
     var response = jsPsych.data.get().last().values()[0].response.Q0;
     var questionText = "";
