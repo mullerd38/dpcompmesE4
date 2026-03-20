@@ -3,7 +3,7 @@
 // Copyright 2024 - Maude Tagand & Dominique Muller
 
 // New study with the goal to compare two measures of beliefs
-// Study 3
+// Study 2
 
 // Initialize jsPsych -----------------------------------------------------------------
 var jsPsych = initJsPsych({
@@ -74,10 +74,8 @@ var consigne = {
   "<p class= 'instructions_questionnary bold'>Please read these instructions very carefully.</p>" +
   "<p class= 'instructions_questionnary'>Imagine you are a medical researcher looking for a cure for a (fictional) disease called the Vonne syndrome. " + 
   "You just found a medicine that you think could work and your role will be to determine whether this medicine is effective or not. " +
-  "<p class= 'instructions_questionnary'>To do so, you will see patients suffering from the disease one by one. " +
-  "For each patient you can choose to administer the medicine or the placebo in order to observe whether the patient recovers from the crisis or not. " +
-  "A placebo is a pill that resembles the medicine, but does not contain any substance affecting health. " + 
-  "Medicines are typically compared to this type of pill to assess their effectiveness.</p>" + 
+  "<p class= 'instructions_questionnary'>To do so, you will see patients suffering from the disease one by one, and depending on the instructions, you will have to give them either the medicine or the placebo, " +
+  "that is to say a pill that resembles the medicine, but does not contain any substance affecting health (it is generally with this type of pill that a medicine is compared to in order to judge its effectiveness).</p>" + //retour à la ligne
   "<p class= 'instructions_questionnary'>You will test a certain number of patients to determine the effectiveness of the medicine.</p>",
   choices: ['I have read carefully and I can start the study']
 };
@@ -134,45 +132,37 @@ var pilule_given = {
   }
 }
 
-// Trial to choose which pill to give
-var pilule_choice = {
-  type: jsPsychHtmlButtonResponse,
-  stimulus: function() {
-    return `<img style='width: 250px;' src='jspsych/img/sickpeople.jpg'></img>
-            <p class='instructions'>The patient is sick. Which pill do you want to give?</p>`;
-  },
-  choices: [
-    `<div class='choice-container'><img style='width: 100px;' src='jspsych/img/pilule.png'><div class='choice-text'>Medicine</div></div>`,
-    `<div class='choice-container'><img style='width: 100px;' src='jspsych/img/pilule.png'><div class='choice-text'>Placebo</div></div>`
-  ],
-  data: {
-    diagnostic: jsPsych.timelineVariable('diagnostic'),
-  },
-  on_finish: function(data) {
-    data.chosen_pilule = data.response == 0 ? "medicine" : "placebo";
+var loop_pilule = {
+  timeline: [pilule_given],
+  loop_function: function(){
+    var response = jsPsych.data.get().last().values()[0].response;
+    var correct_button = jsPsych.timelineVariable('correct_button')
+    if (response == correct_button){
+      return false;
+    } else {
+      return true;
+    }
   }
-};
+}
 
-// Feedback about the chosen pill
 var feedback = {
   type: jsPsychHtmlButtonResponse,
-  stimulus: function() {
-    var last_response = jsPsych.data.getLastTrialData().values()[0];
-    var chosen_pilule = last_response.response == 0 ? "medicine" : "placebo";
-    return `<img style='width: 250px;' src="${jsPsych.timelineVariable('image')}"></img>
-            <p class='instructions'>You gave the <strong>${chosen_pilule}</strong>. The patient has <strong>${jsPsych.timelineVariable('diagnostic')}</strong>.</p>`;
+  stimulus: function(){
+    return `
+    <img style= 'width: 250px;' src="${jsPsych.timelineVariable('image')}"></img>
+    <p class='instructions'>The patient has ${jsPsych.timelineVariable('diagnostic')}!</p>`;
   },
-  choices: ['Continue']
-};
+  choices: ['Continue'],
+}
 
 var fastResponses = 0;  // Counter for quick responses
 var maxFastResponses = 3;  // Number of warnings before a stronger message
 
 var procedure_testing = {
-  timeline: [pilule_choice, feedback],
+  timeline: [loop_pilule, feedback],
   timeline_variables: stim_randomization,
   data: {
-    expected_pilule: jsPsych.timelineVariable('pilule'), // in passive paradigm
+    pilule: jsPsych.timelineVariable('pilule'),
     diagnostic: jsPsych.timelineVariable('diagnostic'),
     med_score: jsPsych.timelineVariable('med_score'),
     pla_score: jsPsych.timelineVariable('pla_score')
@@ -401,7 +391,7 @@ var session_id = jsPsych.data.getURLVariable('SESSION_ID');
 //Save data ---------------------------------------------------------------------------------
 const subject_id = jsPsych.randomization.randomID(10);
 const filename = `${subject_id}.csv`;
-const experiment_id = "ihDohyydNeaX";
+const experiment_id = "1b3xPiBsx5SW";
 // Your OSF token
 // const osfToken = 'VLFG5mbOACd0fk6jkN1IhAwbdrCi8OSm62rzTqPBreN3asR5QCcIeTBz9YkwJy1WL9CkNp';
 
