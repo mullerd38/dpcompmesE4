@@ -37,7 +37,7 @@ var welcome = {
   type: jsPsychHtmlButtonResponse,
   stimulus:
     "<h1 class ='custom-title'>Welcome</h1>" +
-    "<p class='instructions'>TEST 4 Thank you for taking part in this survey. <b> Please note that you can only participate from a computer.</b> </p>" +
+    "<p class='instructions'>TEST 5 Thank you for taking part in this survey. <b> Please note that you can only participate from a computer.</b> </p>" +
     "<p class='instructions'>We are going to ask you to imagine you are a medical researcher who wants to test the effectiveness of a medicine against a fictitious disease. " +
     "Your task will be to give your opinion on the effectiveness of this medicine.</p>" +
     "<p class='instructions'>If you have any question related to this research, please " +
@@ -258,7 +258,7 @@ var slider = {
         <p style="margin-bottom: 1px;">${questionText}</p>
         <p style="font-size: 16px;">Your current answer: <strong><span id="answer-display">1</span></strong></p>`;
   },
-  slider_width: 350 , // Keep this as is to control slider size
+  slider_width: 700 , // Keep this as is to control slider size
 
   on_load: function() {
     let slider = document.getElementById("jspsych-html-slider-response-response");
