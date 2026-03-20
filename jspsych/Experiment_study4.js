@@ -37,7 +37,7 @@ var welcome = {
   type: jsPsychHtmlButtonResponse,
   stimulus:
     "<h1 class ='custom-title'>Welcome</h1>" +
-    "<p class='instructions'>TEST 3 Thank you for taking part in this survey. <b> Please note that you can only participate from a computer.</b> </p>" +
+    "<p class='instructions'>TEST 4 Thank you for taking part in this survey. <b> Please note that you can only participate from a computer.</b> </p>" +
     "<p class='instructions'>We are going to ask you to imagine you are a medical researcher who wants to test the effectiveness of a medicine against a fictitious disease. " +
     "Your task will be to give your opinion on the effectiveness of this medicine.</p>" +
     "<p class='instructions'>If you have any question related to this research, please " +
@@ -231,9 +231,9 @@ var slider = {
       ];
     } else {
       return [
-        '-100<br>Ton label gauche',   // ← à modifier ensuite
-        '0<br>Ton label centre',      // ← à modifier ensuite
-        '100<br>Ton label droit'      // ← à modifier ensuite
+        '-100<br>Patients are more likely to recover after receiving the placebo', 
+        '0<br>Patients are equally likely to recover after receiving the medicine or the placebo',
+        '100<br>Patients are more likely to recover after receiving the medicine'
       ];
     }
   },
@@ -251,7 +251,7 @@ var slider = {
       questionText = "Erreur : réponse inattendue." + response;
     }
     //slider mesure Matute
-    if (typeof response === 'undefined') questionText = "To what extent do you think that the medicine has been effective in healing the patients you have seen? <br>";
+    if (typeof response === 'undefined') questionText = "On the basis of the information you have gathered, you think that: <br>";
 
     // Only return the question text here
     return `
