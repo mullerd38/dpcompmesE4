@@ -37,7 +37,7 @@ var welcome = {
   type: jsPsychHtmlButtonResponse,
   stimulus:
     "<h1 class ='custom-title'>Welcome</h1>" +
-    "<p class='instructions'>TEST 1 Thank you for taking part in this survey. <b> Please note that you can only participate from a computer.</b> </p>" +
+    "<p class='instructions'>TEST 2 Thank you for taking part in this survey. <b> Please note that you can only participate from a computer.</b> </p>" +
     "<p class='instructions'>We are going to ask you to imagine you are a medical researcher who wants to test the effectiveness of a medicine against a fictitious disease. " +
     "Your task will be to give your opinion on the effectiveness of this medicine.</p>" +
     "<p class='instructions'>If you have any question related to this research, please " +
@@ -106,13 +106,14 @@ var placebo_randomization = jsPsych.randomization.repeat(placebo, 1);
 var order_randomization = jsPsych.randomization.sampleWithoutReplacement(["medicine_first", "placebo_first"], 1)[0]
 var stim_randomization = [];
 
-for (var i = 0; i < 24; i++) { // 24 times med and pla (or pla and med), so 48 trials in total
+for (var i = 0; i < medicine_randomization.length; i++) { // ✅ s'adapte automatiquement
   if (order_randomization == "medicine_first"){
     stim_randomization.push(medicine_randomization.pop(), placebo_randomization.pop());
   } else if (order_randomization == "placebo_first"){
     stim_randomization.push(placebo_randomization.pop(), medicine_randomization.pop());
   }
 }
+
 console.log(medicine);
 console.log(placebo);
 console.log(medicine_randomization);
