@@ -222,21 +222,30 @@ var slider = {
   min: condition === "two-step" ? 1 : -100,  // ← -100 pour single-step
   max: 100,
   step: 1,
-  labels: function() {
-    if (condition === "two-step") {
+ labels: function() {
+  if (condition === "two-step") {
+    return [
+      '1<br>Very small extent', 
+      '50<br>Some extent',
+      '100<br>Very large extent'
+    ];
+  } else {
+    // ← contrebalancement pour single-step
+    if (button_randomization === "medicine_high") {
       return [
-        '1<br>Very small extent', 
-        '50<br>Some extent',
-        '100<br>Very large extent'
+        '-100<br>more likely to recover<br>after receiving the placebo', 
+        '0<br>equally likely to recover<br>after receiving the medicine or the placebo',
+        '100<br>more likely to recover<br>after receiving the medicine'
       ];
     } else {
       return [
-        '-100<br>more likely to recover<br> after receiving the placebo', 
-        '0<br>equally likely to recover<br> after receiving the medicine or the placebo',
-        '100<br>more likely to recover<br> after receiving the medicine'
+        '-100<br>more likely to recover<br>after receiving the medicine', 
+        '0<br>equally likely to recover<br>after receiving the medicine or the placebo',
+        '100<br>more likely to recover<br>after receiving the placebo'
       ];
     }
-  },
+  }
+},
  
   stimulus: function() {
     var response = jsPsych.data.get().last().values()[0].response.Q0;
@@ -250,7 +259,7 @@ var slider = {
     } else {
       questionText = "Erreur : réponse inattendue." + response;
     }
-    //slider mesure Matute
+    //slider mesure but from -100 to 100
     if (typeof response === 'undefined') questionText = "On the basis of the information you have gathered, you think that patients are: <br>";
 
     // Only return the question text here
@@ -276,6 +285,12 @@ var slider = {
     // ✅ Trigger on both "input" (move) and "click" (first selection)
     slider.addEventListener("input", updateDisplay);
     slider.addEventListener("click", updateDisplay);
+  },
+
+  on_finish: function(data) {       // ← Here we recode so that the counterbalancing is directly recoded here
+    if (condition === "single-step" && button_randomization === "medicine_low") {
+      data.response = data.response * -1;
+    }
   }
 };
 
