@@ -37,7 +37,7 @@ var welcome = {
   type: jsPsychHtmlButtonResponse,
   stimulus:
     "<h1 class ='custom-title'>Welcome</h1>" +
-    "<p class='instructions'>TEST 6 Thank you for taking part in this survey. <b> Please note that you can only participate from a computer.</b> </p>" +
+    "<p class='instructions'>TEST 7 Thank you for taking part in this survey. <b> Please note that you can only participate from a computer.</b> </p>" +
     "<p class='instructions'>We are going to ask you to imagine you are a medical researcher who wants to test the effectiveness of a medicine against a fictitious disease. " +
     "Your task will be to give your opinion on the effectiveness of this medicine.</p>" +
     "<p class='instructions'>If you have any question related to this research, please " +
@@ -231,9 +231,9 @@ var slider = {
       ];
     } else {
       return [
-        '-100<br>more likely to recover after receiving the placebo', 
-        '0<br>equally likely to recover after receiving the medicine or the placebo',
-        '100<br>more likely to recover after receiving the medicine'
+        '-100<br>more likely to recover<br> after receiving the placebo', 
+        '0<br>equally likely to recover<br> after receiving the medicine or the placebo',
+        '100<br>more likely to recover<br> after receiving the medicine'
       ];
     }
   },
@@ -256,7 +256,7 @@ var slider = {
     // Only return the question text here
     return `
         <p style="margin-bottom: 1px;">${questionText}</p>
-        <p style="font-size: 16px;">(Your current answer: <strong><span id="answer-display">1</span></strong>)</p>`;
+        <p style="font-size: 16px;">(Your current answer: <strong><span id="answer-display">1</span></strong></p>)`;
   },
   slider_width: 700 , // Keep this as is to control slider size
 
