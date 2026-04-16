@@ -10,8 +10,15 @@ var jsPsych = initJsPsych({
 });
 
 // Define randomVariable to determine condition
-let randomVariable = Math.random(); // Generates a random number between 0 and 1
-let condition = randomVariable < 0.5 ? "two-step" : "single-step"; // Define condition
+let randomVariable = Math.random();
+let condition;
+if (randomVariable < 0.333) {
+  condition = "two-step";
+} else if (randomVariable < 0.666) {
+  condition = "one-step-bi";
+} else {
+  condition = "one-step-uni";
+}
 
 // Browser exclusion ------------------------------------------------------------------
 var browser_check = {
@@ -219,31 +226,32 @@ var slider = {
   type: jsPsychHtmlSliderResponse,
   slider_start: condition === "two-step" ? 1 : 0,  // le 0 reste au centre pour single-step
   require_movement: true,
-  min: condition === "two-step" ? 1 : -100,  // ← -100 pour single-step
+  min: condition === "two-step" ? 1 : (condition === "one-step-bi" ? -100 : 0),
   max: 100,
   step: 1,
- labels: function() {
+labels: function() {
   if (condition === "two-step") {
-    return [
-      '1<br>Very small extent', 
-      '50<br>Some extent',
-      '100<br>Very large extent'
-    ];
-  } else {
-    // ← contrebalancement pour single-step
+    return ['1<br>Very small extent', '50<br>Some extent', '100<br>Very large extent'];
+  } else if (condition === "one-step-bi") {
     if (button_randomization === "medicine_high") {
       return [
-        '-100<br>more likely to recover<br>after receiving the placebo', 
+        '-100<br>more likely to recover<br>after receiving the placebo',
         '0<br>equally likely to recover<br>after receiving the medicine or the placebo',
         '100<br>more likely to recover<br>after receiving the medicine'
       ];
     } else {
       return [
-        '-100<br>more likely to recover<br>after receiving the medicine', 
+        '-100<br>more likely to recover<br>after receiving the medicine',
         '0<br>equally likely to recover<br>after receiving the medicine or the placebo',
         '100<br>more likely to recover<br>after receiving the placebo'
       ];
     }
+  } else { // one-step-uni
+    return [
+      '0<br>Definitely not',
+      '50<br>Quite effective',
+      '100<br>Definitely yes'
+    ];
   }
 },
  
@@ -287,11 +295,11 @@ var slider = {
     slider.addEventListener("click", updateDisplay);
   },
 
-  on_finish: function(data) {       // ← Here we recode so that the counterbalancing is directly recoded here
-    if (condition === "single-step" && button_randomization === "medicine_low") {
-      data.response = data.response * -1;
-    }
+on_finish: function(data) {
+  if (condition === "one-step-bi" && button_randomization === "medicine_low") {
+    data.response = data.response * -1;
   }
+}
 };
 
 var conditional_slider = {
@@ -444,9 +452,9 @@ timeline.push(
 
 // Add conditionally chosen timeline
 if (condition === "two-step") {
-  timeline.push(question, conditional_slider); // Two-step condition
+  timeline.push(question, conditional_slider);
 } else {
-  timeline.push(slider); // Single-step condition
+  timeline.push(slider); // couvre one-step-bi et one-step-uni
 }
 
 // Add the remaining trials
