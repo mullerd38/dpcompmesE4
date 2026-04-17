@@ -44,7 +44,7 @@ var welcome = {
   type: jsPsychHtmlButtonResponse,
   stimulus:
     "<h1 class ='custom-title'>Welcome</h1>" +
-    "<p class='instructions'>TEST 2 Thank you for taking part in this survey. <b> Please note that you can only participate from a computer.</b> </p>" +
+    "<p class='instructions'>TEST 3 Thank you for taking part in this survey. <b> Please note that you can only participate from a computer.</b> </p>" +
     "<p class='instructions'>We are going to ask you to imagine you are a medical researcher who wants to test the effectiveness of a medicine against a fictitious disease. " +
     "Your task will be to give your opinion on the effectiveness of this medicine.</p>" +
     "<p class='instructions'>If you have any question related to this research, please " +
@@ -255,20 +255,23 @@ labels: function() {
   }
 },
  
-  stimulus: function() {
+stimulus: function() {
+  var questionText = "";
+  if (condition === "two-step") {
     var response = jsPsych.data.get().last().values()[0].response.Q0;
-    var questionText = "";
-    if (response == "Patients are more likely to recover after receiving the medicine") {
+    if (response == "more likely to recover after receiving the medicine") {
       questionText = "<p class='instructions'>You just said patients are better off to receive the medicine than the placebo.<br>" +
       "To be more specific, to what extent do you think patients are more likely to get better with the medicine (instead of the placebo)?</p>";
-    } else if (response == "Patients are more likely to recover after receiving the placebo") {
+    } else if (response == "more likely to recover after receiving the placebo") {
       questionText = "<p class='instructions'>You just said patients are better off to receive the placebo than the medicine.<br>" +
       "To be more specific, to what extent do you think patients are more likely to get better with the placebo (instead of the medicine)?</p>";
     } else {
       questionText = "Erreur : réponse inattendue." + response;
     }
-    //slider mesure but from -100 to 100
-    if (typeof response === 'undefined') questionText = "On the basis of the information you have gathered, you think that patients are: <br>";
+  } else {
+    // one-step-bi et one-step-uni : question directe, pas de réponse précédente
+    questionText = "<p class='instructions'>On the basis of the information you have gathered, you think that patients are:</p>";
+  }
 
     // Only return the question text here
     return `
