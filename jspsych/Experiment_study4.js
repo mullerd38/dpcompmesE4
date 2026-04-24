@@ -44,7 +44,7 @@ var welcome = {
   type: jsPsychHtmlButtonResponse,
   stimulus:
     "<h1 class ='custom-title'>Welcome</h1>" +
-    "<p class='instructions'>TEST 3 Thank you for taking part in this survey. <b> Please note that you can only participate from a computer.</b> </p>" +
+    "<p class='instructions'>TEST 4 Thank you for taking part in this survey. <b> Please note that you can only participate from a computer.</b> </p>" +
     "<p class='instructions'>We are going to ask you to imagine you are a medical researcher who wants to test the effectiveness of a medicine against a fictitious disease. " +
     "Your task will be to give your opinion on the effectiveness of this medicine.</p>" +
     "<p class='instructions'>If you have any question related to this research, please " +
@@ -268,9 +268,10 @@ stimulus: function() {
     } else {
       questionText = "Erreur : réponse inattendue." + response;
     }
-  } else {
-    // one-step-bi et one-step-uni : question directe, pas de réponse précédente
+  } else if (condition === "one-step-bi") {
     questionText = "<p class='instructions'>On the basis of the information you have gathered, you think that patients are:</p>";
+  } else { // one-step-uni
+    questionText = "<p class='instructions'>On the basis of the information you have gathered, to what extent do you think patients are more likely to recover after receiving the medicine rather than the placebo?</p>";
   }
 
     // Only return the question text here
