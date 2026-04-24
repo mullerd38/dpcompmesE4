@@ -44,7 +44,7 @@ var welcome = {
   type: jsPsychHtmlButtonResponse,
   stimulus:
     "<h1 class ='custom-title'>Welcome</h1>" +
-    "<p class='instructions'>TEST 5 Thank you for taking part in this survey. <b> Please note that you can only participate from a computer.</b> </p>" +
+    "<p class='instructions'>TEST 6 Thank you for taking part in this survey. <b> Please note that you can only participate from a computer.</b> </p>" +
     "<p class='instructions'>We are going to ask you to imagine you are a medical researcher who wants to test the effectiveness of a medicine against a fictitious disease. " +
     "Your task will be to give your opinion on the effectiveness of this medicine.</p>" +
     "<p class='instructions'>If you have any question related to this research, please " +
@@ -248,9 +248,9 @@ labels: function() {
     }
   } else { // one-step-uni
     return [
-      '0<br>Definitely not',
-      '50<br>Quite effective',
-      '100<br>Definitely yes'
+      '0<br>not more likely at all',
+      '50<br>moderately more likely to recover',
+      '100<br>much more likely to recover'
     ];
   }
 },
