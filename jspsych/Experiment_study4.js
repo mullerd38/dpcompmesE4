@@ -44,7 +44,7 @@ var welcome = {
   type: jsPsychHtmlButtonResponse,
   stimulus:
     "<h1 class ='custom-title'>Welcome</h1>" +
-    "<p class='instructions'>TEST 7 Thank you for taking part in this survey. <b> Please note that you can only participate from a computer.</b> </p>" +
+    "<p class='instructions'>TEST 8 Thank you for taking part in this survey. <b> Please note that you can only participate from a computer.</b> </p>" +
     "<p class='instructions'>We are going to ask you to imagine you are a medical researcher who wants to test the effectiveness of a medicine against a fictitious disease. " +
     "Your task will be to give your opinion on the effectiveness of this medicine.</p>" +
     "<p class='instructions'>If you have any question related to this research, please " +
@@ -231,7 +231,7 @@ var slider = {
   step: 1,
 labels: function() {
   if (condition === "two-step") {
-    return ['1<br>Very small extent', '50<br>Some extent', '100<br>Very large extent'];
+    return ['1<br>Slightly more likely', '50<br>Moderately more likely', '100<br>Much more likely'];
   } else if (condition === "one-step-bi") {
     if (button_randomization === "medicine_high") {
       return [
@@ -261,10 +261,10 @@ stimulus: function() {
     var response = jsPsych.data.get().last().values()[0].response.Q0;
     if (response == "more likely to recover after receiving the medicine") {
       questionText = "<p class='instructions'>You just said patients are better off to receive the medicine than the placebo.<br>" +
-      "To be more specific, to what extent do you think patients are more likely to get better with the medicine (instead of the placebo)?</p>";
+      "To be more specific, how much more likely do you think patients are to recover with the medicine than with the placebo?</p>";
     } else if (response == "more likely to recover after receiving the placebo") {
       questionText = "<p class='instructions'>You just said patients are better off to receive the placebo than the medicine.<br>" +
-      "To be more specific, to what extent do you think patients are more likely to get better with the placebo (instead of the medicine)?</p>";
+      "To be more specific, how much more likely do you think patients are to recover with the placebo than with the medicine?</p>";
     } else {
       questionText = "Erreur : réponse inattendue." + response;
     }
