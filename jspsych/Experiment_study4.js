@@ -104,9 +104,9 @@ var button_randomization = jsPsych.randomization.sampleWithoutReplacement(["medi
 var medicine = stim.filter(function(s){return s.pilule === "medicine"; }); // keep only medicine trials
 var placebo = stim.filter(function(s){return s.pilule === "placebo"; });
 
-// ⚠️ REMETTRE 6 AVANT LANCEMENT
-var medicine_randomization = jsPsych.randomization.repeat(medicine, 1); // each is repeated 6 times, which gives 4*6 = 24
-var placebo_randomization = jsPsych.randomization.repeat(placebo, 1);
+// ⚠️ REMETTRE 6 AVANT LANCEMENT (ici qu'on fait en sorte que ce soit plus court)
+var medicine_randomization = jsPsych.randomization.repeat(medicine, 6); // each is repeated 6 times, which gives 4*6 = 24
+var placebo_randomization = jsPsych.randomization.repeat(placebo, 6);
 
 // In conjunction, this gives MR = 18, MNR = 6 (p = ,75) and PR = 18, PNR = 6 (p = ,75)
 
