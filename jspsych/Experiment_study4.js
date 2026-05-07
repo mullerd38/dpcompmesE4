@@ -354,7 +354,7 @@ var genre = {
   questions: [
     {
       prompt: "<p class='instructions_questionnary'>What gender do you identify as?</p>", 
-      options: ["Woman", "Man","Other"],
+      options: ["Woman", "Man", "Non-binary", "Other"],
       name: 'genre',
       required: true,
       horizontal: true
