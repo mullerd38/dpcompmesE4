@@ -260,10 +260,10 @@ stimulus: function() {
   if (condition === "two-step") {
     var response = jsPsych.data.get().last().values()[0].response.Q0;
     if (response == "more likely to recover after receiving the medicine") {
-      questionText = "<p class='instructions'>You just said patients are better off to receive the medicine than the placebo.<br>" +
+      questionText = "<p class='instructions'>You just said patients are to recover after receiving the medicine than the placebo.<br>" +
       "To be more specific, how much more likely do you think patients are to recover with the medicine than with the placebo?</p>";
     } else if (response == "more likely to recover after receiving the placebo") {
-      questionText = "<p class='instructions'>You just said patients are better off to receive the placebo than the medicine.<br>" +
+      questionText = "<p class='instructions'>You just said patients are to recover after receiving the placebo than the medicine.<br>" +
       "To be more specific, how much more likely do you think patients are to recover with the placebo than with the medicine?</p>";
     } else {
       questionText = "Erreur : réponse inattendue." + response;
