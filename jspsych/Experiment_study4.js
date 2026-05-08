@@ -44,7 +44,7 @@ var welcome = {
   type: jsPsychHtmlButtonResponse,
   stimulus:
     "<h1 class ='custom-title'>Welcome</h1>" +
-    "<p class='instructions'>Thank you for taking part in this survey. <b> Please note that you can only participate from a computer.</b> </p>" +
+    "<p class='instructions'>Test 2Thank you for taking part in this survey. <b> Please note that you can only participate from a computer.</b> </p>" +
     "<p class='instructions'>We are going to ask you to imagine you are a medical researcher who wants to test the effectiveness of a medicine against a fictitious disease. " +
     "Your task will be to give your opinion on the effectiveness of this medicine.</p>" +
     "<p class='instructions'>If you have any question related to this research, please " +
@@ -145,12 +145,13 @@ var pilule_given = {
 var loop_pilule = {
   timeline: [pilule_given],
   loop_function: function(){
-    var response = jsPsych.data.get().last().values()[0].response;
-    var correct_button = jsPsych.timelineVariable('correct_button')
+    var last_trial = jsPsych.data.get().last().values()[0];
+    var response = last_trial.response;
+    var correct_button = jsPsych.timelineVariable('correct_button');
     if (response == correct_button){
       return false;
     } else {
-      jsPsych.data.get().last().delete(); // ← supprime l'essai raté des données
+      jsPsych.data.get().last().addToAll({valid: false}); // ← marque l'essai comme invalide
       return true;
     }
   }
