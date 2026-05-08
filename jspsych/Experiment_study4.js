@@ -113,7 +113,8 @@ var placebo_randomization = jsPsych.randomization.repeat(placebo, 6);
 var order_randomization = jsPsych.randomization.sampleWithoutReplacement(["medicine_first", "placebo_first"], 1)[0]
 var stim_randomization = [];
 
-for (var i = 0; i < medicine_randomization.length; i++) { // ✅ s'adapte automatiquement
+var total = medicine_randomization.length; // sauvegarder la longueur avant la boucle
+for (var i = 0; i < total; i++) {
   if (order_randomization == "medicine_first"){
     stim_randomization.push(medicine_randomization.pop(), placebo_randomization.pop());
   } else if (order_randomization == "placebo_first"){
@@ -149,6 +150,7 @@ var loop_pilule = {
     if (response == correct_button){
       return false;
     } else {
+      jsPsych.data.get().last().delete(); // ← supprime l'essai raté des données
       return true;
     }
   }
